@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/brendapc/backend-bootcamp/issues"
   },
-  "homepage": "https://github.com/brendapc/backend-bootcamp#readme"
+  "homepage": "https://github.com/brendapc/backend-bootcamp#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^3.0.0"
+  }
 }
