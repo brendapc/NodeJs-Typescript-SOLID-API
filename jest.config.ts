@@ -10,3 +10,4 @@ export default {
     '.+\\.ts$': 'ts-jest'
   }
 };
+//rodar jest --clearCache
