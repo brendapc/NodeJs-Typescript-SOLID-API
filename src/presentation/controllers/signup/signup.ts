@@ -1,3 +1,4 @@
+import { okRequest } from "./../../helpers/http-helper";
 import { InvalidParamError, MissingParamError } from "../../protocols/errors";
 import {
   EmailValidator,
@@ -43,10 +44,8 @@ export class SignUpController implements Controller {
         password,
       });
 
-      return {
-        statusCode: 200,
-        body: createdAccount, //id, name, email, senha
-      };
+      return okRequest(createdAccount); //id, name, email, password
+
     } catch (err) {
       return serverError();
     }
