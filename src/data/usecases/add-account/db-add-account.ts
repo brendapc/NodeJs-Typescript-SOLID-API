@@ -3,13 +3,20 @@ import {
   IAddAccount,
   AccountModel,
   Encrypter,
-} from "../../../data/usecases/add-account/db-add-account-protocols";
+  IAddAccoountRepository,
+} from "./db-add-account-protocols";
 
 export class DbAddAccount implements IAddAccount {
-  constructor(private readonly encrypter: Encrypter) {}
+  constructor(
+    private readonly encrypter: Encrypter,
+    private readonly addAccountRepository: IAddAccoountRepository
+  ) {}
 
-  async add(account: AddAccountModel): Promise<AccountModel> {
-    await this.encrypter.encrypt(account.password);
+  async add(accountData: AddAccountModel): Promise<AccountModel> {
+    const hashedPassword = await this.encrypter.encrypt(accountData.password);
+    await this.addAccountRepository.add(
+      Object.assign({}, accountData, { password: hashedPassword }) // criar um objeto novo e substituir o campo password
+    );
     return new Promise((resolve) => resolve(null));
   }
 }
