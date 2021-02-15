@@ -1,10 +1,15 @@
-import { IAddAccount } from "./../../domain/usecases/add-account";
-import { InvalidParamError, MissingParamError } from "./../protocols/errors";
-import { ServerError } from "./../protocols/errors/server-error";
-import { EmailValidator } from "./../protocols/email-validator";
+import {
+  IAddAccount,
+  AddAccountModel,
+  AccountModel,
+  EmailValidator,
+} from "./signup-protocols";
+import {
+  InvalidParamError,
+  MissingParamError,
+  ServerError,
+} from "../../protocols/errors";
 import { SignUpController } from "./signup";
-import { AddAccountModel } from "../../domain/usecases/add-account";
-import { AccountModel } from "../../domain/models/account";
 
 interface SutTypes {
   sut: SignUpController;
@@ -175,7 +180,7 @@ describe("SignUp Controller", () => {
   });
 
   test("Should call AddAccount with correct values", () => {
-    const { sut,addAccountStub } = makeSut();
+    const { sut, addAccountStub } = makeSut();
     const addSpy = jest.spyOn(addAccountStub, "add");
     const httpRequest = {
       body: {
