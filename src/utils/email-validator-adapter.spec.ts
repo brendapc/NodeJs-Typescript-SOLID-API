@@ -1,4 +1,4 @@
-import { EmailValidatorAdapter } from "./email-validator";
+import { EmailValidatorAdapter } from "./email-validator-adapter";
 import validator from "validator";
 import { isMainThread } from "worker_threads";
 import { EmailValidator } from "../presentation/protocols/email-validator";
