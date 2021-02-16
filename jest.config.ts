@@ -1,13 +1,12 @@
 module.exports = {
-  roots : ['<rootDir>/src'],
-   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-
+  roots: ["<rootDir>/src"],
+  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
   coverageDirectory: "coverage",
-
- coverageProvider: "v8",
+  //coverageProvider: "v8",
   testEnvironment: "node",
+  preset: "@shelf/jest-mongodb",
   transform: {
-    '.+\\.ts$': 'ts-jest'
-  }
+    ".+\\.ts$": "ts-jest",
+  },
 };
 //rodar jest --clearCache
