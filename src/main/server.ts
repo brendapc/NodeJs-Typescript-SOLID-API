@@ -1,4 +1,3 @@
-import express from 'express'
+import app from "./config/app";
 
-const app = express()
-app.listen(3333, ()=> console.log('server running at port 3333 '))
+app.listen(3333, () => console.log("server running at port 3333 "));
