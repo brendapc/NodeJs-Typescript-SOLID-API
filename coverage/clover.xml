@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1613501603113" clover="3.2.0">
-  <project timestamp="1613501603113" name="All files">
-    <metrics statements="60" coveredstatements="50" conditionals="6" coveredconditionals="6" methods="13" coveredmethods="13" elements="79" coveredelements="69" complexity="0" loc="60" ncloc="60" packages="7" files="12" classes="12"/>
+<coverage generated="1613779944474" clover="3.2.0">
+  <project timestamp="1613779944474" name="All files">
+    <metrics statements="73" coveredstatements="63" conditionals="6" coveredconditionals="6" methods="18" coveredmethods="18" elements="97" coveredelements="87" complexity="0" loc="73" ncloc="73" packages="9" files="14" classes="14"/>
     <package name="data.usecases.add-account">
       <metrics statements="10" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="db-add-account-protocols.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\data\usecases\add-account\db-add-account-protocols.ts">
@@ -13,23 +13,48 @@
       </file>
       <file name="db-add-account.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\data\usecases\add-account\db-add-account.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="11" count="5" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="16" count="5" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="11" count="9" type="stmt"/>
+        <line num="12" count="9" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
       </file>
     </package>
     <package name="infra.criptography">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="bcrypt-adapter.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\infra\criptography\bcrypt-adapter.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.criptography.db.mongodb.account-repository">
+      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="account.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\infra\criptography\db\mongodb\account-repository\account.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.criptography.db.mongodb.account-repository.helpers">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <file name="mongo-helper.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\infra\criptography\db\mongodb\account-repository\helpers\mongo-helper.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
       </file>
     </package>
     <package name="presentation.controllers.signup">
@@ -43,25 +68,25 @@
       </file>
       <file name="signup.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\controllers\signup\signup.ts">
         <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="11" type="stmt"/>
-        <line num="15" count="11" type="stmt"/>
-        <line num="19" count="11" type="stmt"/>
-        <line num="20" count="11" type="stmt"/>
-        <line num="26" count="11" type="stmt"/>
-        <line num="27" count="38" type="cond" truecount="2" falsecount="0"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="14" count="15" type="stmt"/>
+        <line num="15" count="15" type="stmt"/>
+        <line num="19" count="12" type="stmt"/>
+        <line num="20" count="12" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="27" count="42" type="cond" truecount="2" falsecount="0"/>
         <line num="28" count="4" type="stmt"/>
-        <line num="31" count="7" type="stmt"/>
-        <line num="32" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="8" type="stmt"/>
+        <line num="32" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="36" count="6" type="stmt"/>
-        <line num="37" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="37" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="38" count="1" type="stmt"/>
-        <line num="41" count="4" type="stmt"/>
-        <line num="47" count="3" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="47" count="4" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
       </file>
     </package>
@@ -69,10 +94,10 @@
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="http-helper.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\helpers\http-helper.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
       </file>
     </package>
     <package name="presentation.protocols">
@@ -87,25 +112,25 @@
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="index.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\protocols\errors\index.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
       </file>
       <file name="invalid-param-error.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\protocols\errors\invalid-param-error.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
       </file>
       <file name="missing-param-error.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\protocols\errors\missing-param-error.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="3" count="8" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
       </file>
       <file name="server-error.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\presentation\protocols\errors\server-error.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
       </file>
@@ -114,9 +139,9 @@
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="email-validator-adapter.ts" path="C:\Users\Brend\Desktop\backend-bootcamp\src\utils\email-validator-adapter.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
       </file>
     </package>
   </project>
