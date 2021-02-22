@@ -1,4 +1,8 @@
-import { serverError, unauthorized } from "./../../helpers/http-helper";
+import {
+  serverError,
+  unauthorized,
+  okRequest,
+} from "./../../helpers/http-helper";
 import { InvalidParamError } from "../../errors/invalid-param-error";
 import { EmailValidator } from "./../../protocols/email-validator";
 import { MissingParamError } from "../../errors/missing-param-error";
@@ -28,6 +32,8 @@ export class LoginController implements Controller {
       if (!accessToken) {
         return unauthorized();
       }
+
+      return okRequest({ accessToken });
     } catch (err) {
       return serverError(err);
     }
