@@ -1,5 +1,5 @@
 import { okRequest } from "./../../helpers/http-helper";
-import { InvalidParamError, MissingParamError } from "../../protocols/errors";
+import { InvalidParamError, MissingParamError } from "../../errors";
 import {
   EmailValidator,
   Controller,
