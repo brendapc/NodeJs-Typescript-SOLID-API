@@ -9,7 +9,7 @@ import {
   InvalidParamError,
   MissingParamError,
   ServerError,
-} from "../../protocols/errors";
+} from "../../errors";
 import { SignUpController } from "./signup";
 import { resolve } from "path";
 
