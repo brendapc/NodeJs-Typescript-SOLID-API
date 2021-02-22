@@ -1,3 +1,4 @@
+import { Validation } from './../../helpers/validators/validation';
 import { Authentication } from "./../../../domain/usecases/authentication";
 import {
   serverError,
@@ -13,6 +14,7 @@ interface SutTypes {
   sut: LoginController;
   emailValidatorStub: EmailValidator;
   authenticationStub: Authentication;
+  validationStub: Validation;
 }
 
 const makeEmailValidator = (): EmailValidator => {
@@ -33,14 +35,29 @@ const makeAuthentication = (): Authentication => {
   return new AuthenticationStub();
 };
 
+const makeValidationStub = (): Validation => {
+  class ValidationStub implements Validation {
+    validate(input: any): Error {
+      return null;
+    }
+  }
+  return new ValidationStub();
+};
+
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator();
   const authenticationStub = makeAuthentication();
-  const sut = new LoginController(emailValidatorStub, authenticationStub);
+  const validationStub = makeValidationStub();
+  const sut = new LoginController(
+    emailValidatorStub,
+    authenticationStub,
+    validationStub
+  );
   return {
     sut,
     emailValidatorStub,
     authenticationStub,
+    validationStub,
   };
 };
 
@@ -154,5 +171,18 @@ describe("Login Controller", () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(okRequest({ accessToken: "any_token" }));
+  });
+
+  test("should return 200 if valid credentials are provided", async () => {
+    const { sut, validationStub } = makeSut();
+    const validateSpy = jest.spyOn(validationStub, "validate");
+    const httpRequest = {
+      body: {
+        email: "any_email@mail.com",
+        password: "any_password",
+      },
+    };
+    await sut.handle(httpRequest);
+    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body);
   });
 });
