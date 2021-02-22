@@ -1,3 +1,4 @@
+import { Validation } from "./../../helpers/validators/validation";
 import {
   serverError,
   unauthorized,
@@ -13,10 +14,12 @@ import { Authentication } from "../../../domain/usecases/authentication";
 export class LoginController implements Controller {
   constructor(
     private readonly emailValidator: EmailValidator,
-    private readonly authenticationStub: Authentication
+    private readonly authenticationStub: Authentication,
+    private readonly validation: Validation
   ) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      this.validation.validate(httpRequest.body);
       const { email, password } = httpRequest.body;
       const requiredFields = ["email", "password"];
       for (const field of requiredFields) {
