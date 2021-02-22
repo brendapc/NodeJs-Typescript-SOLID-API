@@ -20,6 +20,10 @@ export class LoginController implements Controller {
           return badRequest(new MissingParamError(field));
         }
       }
+      const isValid = this.emailValidator.isValid(email);
+      if (!isValid) {
+        return badRequest(new InvalidParamError("email"));
+      }
       await this.authenticationStub.auth(email, password);
     } catch (err) {
       return serverError(err);
