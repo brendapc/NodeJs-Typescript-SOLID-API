@@ -1,3 +1,4 @@
+import { HttpRequest } from "./../../protocols/http";
 import {
   IAddAccount,
   AddAccountModel,
@@ -17,6 +18,15 @@ interface SutTypes {
   emailValidatorStub: EmailValidator;
   addAccountStub: IAddAccount;
 }
+
+const makeFakeRequest = (): HttpRequest => ({
+  body: {
+    name: "any_name",
+    email: "any_mail@mail.com",
+    password: "any_password",
+    passwordConfirmation: "any_password",
+  },
+});
 
 const makeEmailValidatorStub = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -135,14 +145,7 @@ describe("SignUp Controller", () => {
 
     jest.spyOn(emailValidatorStub, "isValid").mockReturnValueOnce(false); //altera o retorno da função só nesse teste
 
-    const httpRequest = {
-      body: {
-        name: "any name",
-        email: "invalid_mail.com",
-        password: "any_password",
-        passwordConfirmation: "any_password",
-      },
-    };
+    const httpRequest = makeFakeRequest();
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError("email"));
@@ -178,7 +181,7 @@ describe("SignUp Controller", () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.body).toEqual(new ServerError(null));
   });
 
   test("Should call AddAccount with correct values", async () => {
@@ -205,7 +208,7 @@ describe("SignUp Controller", () => {
     jest.spyOn(addAccountStub, "add").mockImplementationOnce(() => {
       return new Promise((resolve, reject) => reject(new Error()));
     });
-    
+
     const httpRequest = {
       body: {
         name: "any_name",
@@ -216,7 +219,7 @@ describe("SignUp Controller", () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse.statusCode).toBe(500);
-    expect(httpResponse.body).toEqual(new ServerError());
+    expect(httpResponse.body).toEqual(new ServerError(null));
   });
 
   test("Should return 200 if valid data is provided", async () => {
