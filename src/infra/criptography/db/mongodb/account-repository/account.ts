@@ -9,6 +9,6 @@ export class AccountMongoRepository implements IAddAccoountRepository {
     const result = await accountCollection.insertOne(accountData);
     const newAccountData = result.ops[0];
 
-    return MongoHelper.map(newAccountData)
+    return MongoHelper.map(newAccountData) 
   }
 }
