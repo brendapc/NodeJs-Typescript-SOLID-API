@@ -1,5 +1,5 @@
 import { ILoadAccountByToken } from "./../../domain/usecases/load-accountby-token";
-import { badRequest, okRequest } from "./../helpers/http-helper";
+import { badRequest, okRequest, serverError } from "./../helpers/http-helper";
 import { AuthMiddleware } from "./auth-middleware";
 import { HttpRequest } from "./../protocols/http";
 import { AccessDeniedError } from "../errors/AccessDeniedError";
@@ -9,16 +9,27 @@ interface SutTypes {
   sut: AuthMiddleware;
   loadAccountByTokenStub: ILoadAccountByToken;
 }
+const makeFakeAccount = () => {
+  return {
+    id: "id",
+    name: "name",
+    email: "email",
+    password: "password",
+  };
+};
+
+const makeFakeRequest = () => {
+  return {
+    headers: {
+      "x-access-token": "any_token",
+    },
+  };
+};
 
 const makeLoadAccountbyToken = (): ILoadAccountByToken => {
   class LoadAccountByTokenStub implements ILoadAccountByToken {
     async load(accessToken: string, role?: string): Promise<AccountModel> {
-      const account = {
-        id: "id",
-        name: "name",
-        email: "email",
-        password: "password",
-      };
+      const account = makeFakeAccount();
       return new Promise((resolve) => resolve(account));
     }
   }
@@ -68,5 +79,16 @@ describe("Auth Middlware", () => {
     };
     const httpResponse = await sut.handle(httpRequest);
     expect(httpResponse).toEqual(okRequest({ accountId: "id" }));
+  });
+
+  test("should return 500 if LoadAccountByToken throws", async () => {
+    const { sut, loadAccountByTokenStub } = makeSut();
+    jest
+      .spyOn(loadAccountByTokenStub, "load")
+      .mockReturnValueOnce(
+        new Promise((resolve, reject) => reject(new Error()))
+      );
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(serverError(new Error()));
   });
 });
