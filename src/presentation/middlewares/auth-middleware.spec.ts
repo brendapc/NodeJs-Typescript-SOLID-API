@@ -1,4 +1,4 @@
-import { ILoadAccountByToken } from "./../../domain/usecases/load-accountby-token";
+import { ILoadAccountByToken } from "../../domain/usecases/authentication/load-accountby-token";
 import { badRequest, okRequest, serverError } from "./../helpers/http-helper";
 import { AuthMiddleware } from "./auth-middleware";
 import { HttpRequest } from "./../protocols/http";
