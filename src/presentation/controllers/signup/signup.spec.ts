@@ -1,3 +1,4 @@
+import { makeSignUpValidation } from "./../../../main/factories/signup-validation";
 import { HttpRequest } from "./../../protocols/http";
 import {
   IAddAccount,
@@ -56,7 +57,11 @@ const makeAddAccountStub = (): IAddAccount => {
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidatorStub();
   const addAccountStub = makeAddAccountStub();
-  const sut = new SignUpController(emailValidatorStub, addAccountStub); //implementação da classe
+  const sut = new SignUpController(
+    emailValidatorStub,
+    addAccountStub,
+    makeSignUpValidation()
+  ); //implementação da classe
   return {
     sut,
     emailValidatorStub,
