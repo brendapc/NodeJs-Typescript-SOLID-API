@@ -14,15 +14,10 @@ import { Authentication } from "../../../domain/usecases/authentication";
 export class LoginController implements Controller {
   constructor(
     private readonly emailValidator: EmailValidator,
-    private readonly authenticationStub: Authentication,
-    private readonly validation: Validation
+    private readonly authenticationStub: Authentication
   ) {}
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body);
-      if (error) {
-        return badRequest(error); 
-      }
       const { email, password } = httpRequest.body;
       const requiredFields = ["email", "password"];
       for (const field of requiredFields) {

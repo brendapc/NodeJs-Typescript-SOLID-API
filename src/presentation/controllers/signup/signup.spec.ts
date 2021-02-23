@@ -1,3 +1,5 @@
+import { validator } from "validator";
+import { Validation } from "./../../helpers/validators/validation";
 import { makeSignUpValidation } from "./../../../main/factories/signup-validation";
 import { HttpRequest } from "./../../protocols/http";
 import {
@@ -18,6 +20,7 @@ interface SutTypes {
   sut: SignUpController;
   emailValidatorStub: EmailValidator;
   addAccountStub: IAddAccount;
+  validationStub: Validation;
 }
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -28,6 +31,15 @@ const makeFakeRequest = (): HttpRequest => ({
     passwordConfirmation: "any_password",
   },
 });
+
+const makeValidationStub = (): Validation => {
+  class ValidationStub implements Validation {
+    validate(input: any): Error {
+      return null;
+    }
+  }
+  return new ValidationStub();
+};
 
 const makeEmailValidatorStub = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -57,6 +69,7 @@ const makeAddAccountStub = (): IAddAccount => {
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidatorStub();
   const addAccountStub = makeAddAccountStub();
+  const validationStub = makeValidationStub();
   const sut = new SignUpController(
     emailValidatorStub,
     addAccountStub,
@@ -66,6 +79,7 @@ const makeSut = (): SutTypes => {
     sut,
     emailValidatorStub,
     addAccountStub,
+    validationStub,
   };
 };
 

@@ -35,23 +35,13 @@ const makeAuthentication = (): Authentication => {
   return new AuthenticationStub();
 };
 
-const makeValidationStub = (): Validation => {
-  class ValidationStub implements Validation {
-    validate(input: any): Error {
-      return null;
-    }
-  }
-  return new ValidationStub();
-};
-
 const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator();
   const authenticationStub = makeAuthentication();
-  const validationStub = makeValidationStub();
+
   const sut = new LoginController(
     emailValidatorStub,
     authenticationStub,
-    validationStub
   );
   return {
     sut,
