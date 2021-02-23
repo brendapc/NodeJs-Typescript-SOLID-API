@@ -1,6 +1,6 @@
 import { ILoadAccountByToken } from "../../domain/usecases/load-accountby-token";
 import { AccessDeniedError } from "../errors/AccessDeniedError";
-import { badRequest } from "./../helpers/http-helper";
+import { badRequest, okRequest } from "./../helpers/http-helper";
 import { HttpResponse, HttpRequest } from "./../protocols/http";
 import { Middleware } from "./../protocols/middleware";
 
@@ -10,7 +10,10 @@ export class AuthMiddleware implements Middleware {
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     const accessToken = httpRequest.headers?.["x-access-token"];
     if (accessToken) {
-      await this.loadAccountByToken.load(accessToken);
+      const account = await this.loadAccountByToken.load(accessToken);
+      if (account) {
+        return okRequest({ accountId: account.id });
+      }
     }
     const error = badRequest(new AccessDeniedError());
     return error;

@@ -1,6 +1,5 @@
-import { resolve } from "path";
 import { ILoadAccountByToken } from "./../../domain/usecases/load-accountby-token";
-import { badRequest } from "./../helpers/http-helper";
+import { badRequest, okRequest } from "./../helpers/http-helper";
 import { AuthMiddleware } from "./auth-middleware";
 import { HttpRequest } from "./../protocols/http";
 import { AccessDeniedError } from "../errors/AccessDeniedError";
@@ -49,5 +48,25 @@ describe("Auth Middlware", () => {
     };
     await sut.handle(httpRequest);
     expect(loadSpy).toHaveBeenCalledWith(httpRequest.headers["x-access-token"]);
+  });
+
+  test("should return 403 if LoadAccountByToken returns null", async () => {
+    const { sut, loadAccountByTokenStub } = makeSut();
+    jest
+      .spyOn(loadAccountByTokenStub, "load")
+      .mockReturnValueOnce(new Promise((resolve) => resolve(null)));
+    const httpResponse = await sut.handle({});
+    expect(httpResponse).toEqual(badRequest(new AccessDeniedError()));
+  });
+
+  test("should return 200 if LoadAccountByToken returns an account", async () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      headers: {
+        "x-access-token": "any_token",
+      },
+    };
+    const httpResponse = await sut.handle(httpRequest);
+    expect(httpResponse).toEqual(okRequest({ accountId: "id" }));
   });
 });
