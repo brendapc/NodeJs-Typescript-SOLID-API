@@ -15,6 +15,7 @@ import {
 } from "../../errors";
 import { SignUpController } from "./signup";
 import { resolve } from "path";
+import { badRequest } from "../../helpers/http-helper";
 
 interface SutTypes {
   sut: SignUpController;
@@ -136,9 +137,8 @@ describe("SignUp Controller", () => {
       },
     };
     const httpResponse = await sut.handle(httpRequest);
-    expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(
-      new MissingParamError("passwordConfirmation")
+    expect(httpResponse).toEqual(
+      badRequest(new MissingParamError("passwordConfirmation"))
     );
   });
 
