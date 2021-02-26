@@ -1,3 +1,3 @@
-export interface ILogErrorRepository{
-    log(stack: string): Promise<void>
+export interface ILogErrorRepository {
+  logError(stack: string): Promise<void>;
 }
