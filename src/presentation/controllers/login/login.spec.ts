@@ -76,11 +76,10 @@ describe("Login Controller", () => {
     const httpRequest = {
       body: {
         email: "any_email@mail.com",
-        password: "any_password",
       },
     };
-    await sut.handle(httpRequest);
-    expect(isValidSpy).toHaveBeenCalledWith(httpRequest.body.email);
+    const response = await sut.handle(httpRequest);
+    expect(response).toEqual(badRequest(new MissingParamError("password")));
   });
 
   test("should return 500 if EmailValidator throws", async () => {
@@ -157,7 +156,7 @@ describe("Login Controller", () => {
     expect(httpResponse).toEqual(okRequest({ accessToken: "any_token" }));
   });
 
- /*  test("should return 200 if valid credentials are provided", async () => {
+  /*  test("should return 200 if valid credentials are provided", async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, "validate");
     const httpRequest = {
