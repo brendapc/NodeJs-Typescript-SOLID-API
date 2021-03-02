@@ -1,18 +1,17 @@
-import { EmailValidator } from "../../protocols/email-validator";
-import { InvalidParamError } from "./../../errors/invalid-param-error";
-import { Validation } from "./validation";
+import { InvalidParamError } from '../../errors'
+import { EmailValidator } from '../../protocols/email-validator'
+import { Validation } from '../../protocols/validation'
 
 export class EmailValidation implements Validation {
-  constructor(
-      private readonly filedName: string,
-    private readonly emailValidator: EmailValidator,
-
+  constructor (
+    private readonly fieldName: string,
+    private readonly emailValidator: EmailValidator
   ) {}
 
-  validate(input: any): Error {
-    const isValid = this.emailValidator.isValid(input[this.filedName]);
+  validate (input: any): Error {
+    const isValid = this.emailValidator.isValid(input[this.fieldName])
     if (!isValid) {
-      return new InvalidParamError(this.filedName);
+      return new InvalidParamError(this.fieldName)
     }
   }
 }
