@@ -1,30 +1,40 @@
-
-import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
-import { Validation } from '../../protocols/validation'
-import { HttpRequest, HttpResponse, Controller, AddAccount } from './signup-controller-protocols'
+import { badRequest, ok, serverError } from "../../helpers/http/http-helper";
+import { Validation } from "../../protocols/validation";
+import {
+  HttpRequest,
+  HttpResponse,
+  Controller,
+  AddAccount,
+  Authentication,
+} from "./signup-controller-protocols";
 
 export class SignUpController implements Controller {
-  constructor (
+  constructor(
     private readonly addAccount: AddAccount,
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly authentication: Authentication
   ) {}
 
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const error = this.validation.validate(httpRequest.body)
+      const error = this.validation.validate(httpRequest.body);
       if (error) {
-        return badRequest(error)
+        return badRequest(error);
       }
-      const { name, email, password } = httpRequest.body
+      const { name, email, password } = httpRequest.body;
       const account = await this.addAccount.add({
         name,
         email,
+        password,
+      });
+      await this.authentication.auth({
+        email,
         password
       })
-      return ok(account)
+      return ok(account);
     } catch (err) {
-      console.error(err)
-      return serverError(err)
+      console.error(err);
+      return serverError(err);
     }
   }
 }
