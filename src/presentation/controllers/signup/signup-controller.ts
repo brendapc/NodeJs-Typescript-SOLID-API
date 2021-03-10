@@ -27,11 +27,11 @@ export class SignUpController implements Controller {
         email,
         password,
       });
-      await this.authentication.auth({
+      const accessToken = await this.authentication.auth({
         email,
         password
       })
-      return ok(account);
+      return ok({accessToken: accessToken});
     } catch (err) {
       console.error(err);
       return serverError(err);
