@@ -1,7 +1,10 @@
-import { serverError } from "./../../../../helpers/http/http-helper";
-import { AddSurvey } from "./../../../../../domain/usecases/add-survey";
+import { serverError, noContent } from "./../../../../helpers/http/http-helper";
 import { Validation } from "./../../../../protocols/validation";
-import { HttpRequest, HttpResponse } from "./add-survey-controller-protocols";
+import {
+  HttpRequest,
+  HttpResponse,
+  AddSurvey,
+} from "./add-survey-controller-protocols";
 import { Controller } from "./../../../../protocols/controller";
 import { badRequest } from "../../../../helpers/http/http-helper";
 
@@ -21,7 +24,7 @@ export class AddSurveyController implements Controller {
         question,
         answers,
       });
-      return new Promise((resolve) => resolve(null));
+      return noContent();
     } catch (error) {
       return serverError(error);
     }
