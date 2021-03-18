@@ -1,6 +1,6 @@
-import { forbbiden } from "./../../helpers/http/http-helper";
-import { badRequest, ok, serverError } from "../../helpers/http/http-helper";
-import { Validation } from "../../protocols/validation";
+import { forbbiden } from "../../../helpers/http/http-helper";
+import { badRequest, ok, serverError } from "../../../helpers/http/http-helper";
+import { Validation } from "../../../protocols/validation";
 import {
   HttpRequest,
   HttpResponse,
@@ -8,7 +8,7 @@ import {
   AddAccount,
   Authentication,
 } from "./signup-controller-protocols";
-import { EmailInUseError } from "../../errors";
+import { EmailInUseError } from "../../../errors";
 
 export class SignUpController implements Controller {
   constructor(
