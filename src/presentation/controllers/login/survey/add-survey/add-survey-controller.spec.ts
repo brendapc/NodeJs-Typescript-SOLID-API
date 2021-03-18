@@ -1,5 +1,4 @@
-import { serverError } from "./../../../../helpers/http/http-helper";
-import { AddSurvey } from "./../../../../../domain/usecases/add-survey";
+import { serverError, noContent } from "./../../../../helpers/http/http-helper";
 import { badRequest } from "../../../../helpers/http/http-helper";
 import { Validation } from "./../../../../protocols/validation";
 import { AddSurveyController } from "./add-survey-controller";
@@ -87,5 +86,10 @@ describe("AddSurvey Controller", () => {
       );
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+  test("should return 204 on success", async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(noContent());
   });
 });
