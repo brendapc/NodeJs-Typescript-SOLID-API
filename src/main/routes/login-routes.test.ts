@@ -20,10 +20,10 @@ describe('Login Routes', () => {
     await accountCollection.deleteMany({})
   })
 
-  describe('POST /signup', () => {
-    test('Should return 200 on signup', async () => {
+  describe('POST /login', () => {
+    test('Should return 200 on login', async () => {
       await request(app)
-        .post('/api/signup')
+        .post('/api/login')
         .send({
           name: 'Rodrigo',
           email: 'rodrigo.manguinho@gmail.com',
