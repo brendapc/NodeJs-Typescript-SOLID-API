@@ -1,6 +1,5 @@
 import { LoadAccountByToken } from "./../../domain/usecases/load-account-by-token";
 import { forbbiden } from "./../helpers/http/http-helper";
-import { resolve } from "node:path";
 import { HttpRequest, HttpResponse } from "./../protocols/http";
 import { Middleware } from "./../protocols/middleware";
 import { AccessDeniedError } from "../errors";
