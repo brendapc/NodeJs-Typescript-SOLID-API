@@ -31,9 +31,9 @@ const makeLoadAccountByTokenStub = (): LoadAccountByToken => {
   }
   return new LoadAccountByTokenStub();
 };
-const makeSut = (): SutTypes => {
+const makeSut = (role?: string): SutTypes => {
   const loadAccountByTokenStub = makeLoadAccountByTokenStub();
-  const sut = new AuthMiddleware(loadAccountByTokenStub);
+  const sut = new AuthMiddleware(loadAccountByTokenStub, role);
 
   return {
     sut,
@@ -47,12 +47,15 @@ describe("Auth Middleware", () => {
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()));
   });
+
   test("should call LoadAccountByToken with correct x-access-token", async () => {
-    const { sut, loadAccountByTokenStub } = makeSut();
+    const role = "any_role";
+    const { sut, loadAccountByTokenStub } = makeSut(role);
     const loadSpy = jest.spyOn(loadAccountByTokenStub, "load");
     await sut.handle(makeFakeRequest());
-    expect(loadSpy).toHaveBeenCalledWith("any_token");
+    expect(loadSpy).toHaveBeenCalledWith("any_token", role);
   });
+
   test("should return 403 if LoadAccountByToken returns null", async () => {
     const { sut, loadAccountByTokenStub } = makeSut();
     jest
@@ -61,11 +64,13 @@ describe("Auth Middleware", () => {
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()));
   });
+
   test("should return 200 if LoadAccountByToken returns account", async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(ok({ accountId: "any_id" }));
   });
+
   test("should return 500 if LoadAccountByToken throws", async () => {
     const { sut, loadAccountByTokenStub } = makeSut();
     jest
