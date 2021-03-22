@@ -1,7 +1,7 @@
 import { LoadAccountByToken } from "./../../domain/usecases/load-account-by-token";
 import { AccountModel } from "../../domain/models/account";
 import { AccessDeniedError } from "../errors";
-import { forbbiden } from "./../helpers/http/http-helper";
+import { forbbiden, ok } from "./../helpers/http/http-helper";
 import { HttpRequest } from "./../protocols/http";
 import { AuthMiddleware } from "./auth-middleware";
 
@@ -58,7 +58,12 @@ describe("Auth Middleware", () => {
     jest
       .spyOn(loadAccountByTokenStub, "load")
       .mockReturnValueOnce(new Promise((resolve) => resolve(null)));
-    const httpResponse = await sut.handle({});
+    const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(forbbiden(new AccessDeniedError()));
+  });
+  test("should return 200 if LoadAccountByToken returns account", async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(ok({ accountId: "any_id" }));
   });
 });
