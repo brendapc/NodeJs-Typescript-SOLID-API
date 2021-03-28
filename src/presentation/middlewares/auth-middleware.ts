@@ -18,6 +18,7 @@ export class AuthMiddleware implements Middleware {
           accessToken,
           this.role
         );
+        console.log(accessToken, account);
         if (account) return ok({ accountId: account.id });
       }
       return forbbiden(new AccessDeniedError());
