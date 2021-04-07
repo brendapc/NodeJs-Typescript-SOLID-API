@@ -1,1 +1,1 @@
-# Repo used to store a SOLID development of a backend application
+## NodeJs, Typescript, TDD, DDD, Clean Architecture e SOLID
