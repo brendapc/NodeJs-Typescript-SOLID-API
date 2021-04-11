@@ -5,8 +5,8 @@ import { LoadSurveyById } from './../../../domain/usecases/load-survey-by-id';
 export class DbLoadSurveyById implements LoadSurveyById {
     constructor(private readonly _loadSurveyByIdRepository: LoadSurveyByIdRepository){}
     async loadById (id: string): Promise<SurveysModel> {
-        await this._loadSurveyByIdRepository.loadById(id)
-        return null
+        const survey = await this._loadSurveyByIdRepository.loadById(id)
+        return survey
 
     }
 }
