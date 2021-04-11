@@ -1,4 +1,5 @@
 import MockDate from "mockdate";
+import { rejects } from "node:assert";
 import { SurveysModel } from "../../../domain/models/survey";
 import { LoadSurveyByIdRepository } from "../../protocols/db/survey/load-survey-by-id-repository";
 import { DbLoadSurveyById } from "./db-load-survey-by-id";
@@ -59,6 +60,13 @@ describe('DbLoadSurveyById', () => {
         const {sut} = makeSut()
         const survey = await sut.loadById('any_id')
         expect(survey).toEqual(makeFakeSurvey())
+    })
+    
+    test('should thro if LoadSurveyByIdRepository throws', async () => {
+        const {sut, loadSurveyByIdRepository} = makeSut()
+        jest.spyOn(loadSurveyByIdRepository, 'loadById').mockReturnValueOnce(new Promise((resolve,reject) => reject(new Error()));
+        const promise = sut.loadById('any_id')
+        await expect(promise).rejects.toThrow()
     })
     
 })
