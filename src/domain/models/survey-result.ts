@@ -1,4 +1,4 @@
-export interface SurveyResultModel {
+export interface ISurveyResultModel {
     id: string;
     surveyId: string;
     accountId: string;
