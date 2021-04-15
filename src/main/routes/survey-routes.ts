@@ -7,7 +7,7 @@ import { makeLoadSurveysController } from "../factories/controllers/survey/load-
 
 export default (router: Router): void => {
   const adminRoute = adaptMiddleware(makeAuthMiddleware("admin"));
-  const auth = adaptMiddleware(makeAuthMiddleware();
+  const auth = adaptMiddleware(makeAuthMiddleware());
 
   router.post("/surveys", adminRoute, adaptRoute(makeAddSurveyController()));
   router.get("/surveys", auth, adaptRoute(makeLoadSurveysController()));
