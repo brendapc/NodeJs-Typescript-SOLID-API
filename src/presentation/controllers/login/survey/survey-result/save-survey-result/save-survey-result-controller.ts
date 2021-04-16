@@ -14,7 +14,7 @@ export class SaveSurveyResultController implements Controller{
             if(!survey) return forbbiden( new InvalidParamError('surveyId'))
             return null
         }catch(err){
-            return serverError(error)
+            return serverError(err)
         }
     }
 
