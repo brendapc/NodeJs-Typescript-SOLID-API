@@ -1,3 +1,4 @@
+import { HttpResponse } from './../../../../../protocols/http';
 import { serverError } from './../../../../../helpers/http/http-helper';
 import { InvalidParamError } from './../../../../../errors/invalid-param-error';
 import { LoadSurveyById } from './../../../../../../domain/usecases/survey/load-survey-by-id';
@@ -10,6 +11,14 @@ interface SutTypes {
     sut: SaveSurveyResultController;
     loadSurveyByIdStub: LoadSurveyById;
 }  
+const makeFakeRequest = (): HttpRequest => ({
+    params: {
+        surveyId: 'any_survey_id'
+    },
+    body: {
+        answer: 'any_answer'
+    }
+})
 
 const makeFakeSurvey = (): SurveysModel => ({
         id: "any_id",
@@ -40,11 +49,6 @@ const makeSut = (): SutTypes => {
       loadSurveyByIdStub
     };
 };
-const makeFakeRequest = (): HttpRequest => ({
-    params: {
-        surveyId: 'any_survey_id'
-    }
-})
 
 describe('SaveSurveyResultController', () => {
     test('should call LoadSurveyById with correct values', async () => {
@@ -65,6 +69,19 @@ describe('SaveSurveyResultController', () => {
         jest.spyOn(loadSurveyByIdStub, 'loadById').mockRejectedValueOnce(new Promise((resolve, reject)=> reject(new Error())))
         const httpResponse = await sut.handle(makeFakeRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+    
+    test('should return 403 if a invalid answer is provided', async () => {
+        const {sut} = makeSut()
+        const httpResponse = await sut.handle({
+            params: {
+                surveyId: 'any_survey_id'
+            },        
+            body: {
+                answer: 'wrong_answer'
+            }
+        })
+        expect(httpResponse).toEqual(forbbiden(new InvalidParamError('answer')))
     })
     
 })
