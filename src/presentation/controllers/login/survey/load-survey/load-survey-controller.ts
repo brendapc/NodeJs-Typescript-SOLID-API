@@ -1,6 +1,6 @@
 import { noContent, serverError } from "./../../../../helpers/http/http-helper";
 import { ok } from "../../../../helpers/http/http-helper";
-import { ILoadSurveys } from "./../../../../../domain/usecases/load-surveys";
+import { ILoadSurveys } from "../../../../../domain/usecases/survey/load-surveys";
 import {
   Controller,
   HttpRequest,
