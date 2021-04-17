@@ -107,7 +107,7 @@ describe("Survey Routes", () => {
         await request(app)
           .get("/api/surveys")
           .set("x-access-token", accessToken)
-          .expect(200);
+          .expect(204);
       });
   })
   
