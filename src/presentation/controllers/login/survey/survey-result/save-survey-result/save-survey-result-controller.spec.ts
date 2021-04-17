@@ -104,7 +104,7 @@ describe('SaveSurveyResultController', () => {
                 jest.spyOn(loadSurveyByIdStub, 'loadById').mockRejectedValueOnce(new Promise((resolve, reject)=> reject(new Error())))
                 const httpResponse = await sut.handle(makeFakeRequest())
                 expect(httpResponse).toEqual(serverError(new Error()))
-    })
+           })
     
     test('should return 403 if a invalid answer is provided', async () => {
         const {sut} = makeSut()
@@ -118,7 +118,10 @@ describe('SaveSurveyResultController', () => {
         })
         expect(httpResponse).toEqual(forbbiden(new InvalidParamError('answer')))
     })
-})
+})  
+describe('SaveSurveyResult', () => {
+    
+    
     test('should call SaveSurveyResult with correct values', async () => {
         const {sut, saveSurveyResultStub} = makeSut()
         const saveSurveySpy =  jest.spyOn(saveSurveyResultStub, 'save')
@@ -130,4 +133,11 @@ describe('SaveSurveyResultController', () => {
             answer: 'any_answer',
         })
     })
+    test('should return 500 if SaveSurveyResult throws', async () => {
+        const {sut, saveSurveyResultStub} = makeSut()
+        jest.spyOn(saveSurveyResultStub, 'save').mockRejectedValueOnce(new Promise((resolve, reject)=> reject(new Error())))
+        const httpResponse = await sut.handle(makeFakeRequest())
+        expect(httpResponse).toEqual(serverError(new Error()))
+   })
+})
 })
