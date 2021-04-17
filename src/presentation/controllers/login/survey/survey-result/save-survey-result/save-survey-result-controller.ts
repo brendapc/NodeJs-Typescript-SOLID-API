@@ -1,5 +1,5 @@
 import { ISaveSurveyResult } from './../../../../../../domain/usecases/survey-result/save-survey-result';
-import { serverError } from './../../../../../helpers/http/http-helper';
+import { ok, serverError } from './../../../../../helpers/http/http-helper';
 import { InvalidParamError } from './../../../../../errors/invalid-param-error';
 import { LoadSurveyById } from './../../../../../../domain/usecases/survey/load-survey-by-id';
 import { HttpRequest, HttpResponse } from '../../add-survey/add-survey-controller-protocols';
@@ -25,13 +25,13 @@ export class SaveSurveyResultController implements Controller{
             }else{
                 return forbbiden( new InvalidParamError('surveyId'))
             }
-            await this._saveSurveyResult.save({
+            const surveyResult = await this._saveSurveyResult.save({
                 accountId,
                 surveyId,
                 answer,
                 date: new Date()
             })
-            return null
+            return ok(surveyResult)
         }catch(err){
             return serverError(err)
         }
