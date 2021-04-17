@@ -1,6 +1,6 @@
 import { ISaveSurveyResult, ISaveSurveyResultModel } from './../../../../../../domain/usecases/survey-result/save-survey-result';
 import { HttpResponse } from './../../../../../protocols/http';
-import { serverError } from './../../../../../helpers/http/http-helper';
+import { ok, serverError } from './../../../../../helpers/http/http-helper';
 import { InvalidParamError } from './../../../../../errors/invalid-param-error';
 import { LoadSurveyById } from './../../../../../../domain/usecases/survey/load-survey-by-id';
 import { HttpRequest } from "../../add-survey/add-survey-controller-protocols";
@@ -139,5 +139,10 @@ describe('SaveSurveyResult', () => {
         const httpResponse = await sut.handle(makeFakeRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
    })
+   test('should return 200 on success', async () => {
+    const {sut} = makeSut()
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(ok(makeFakeSurveyResult()))
+})
 })
 })
