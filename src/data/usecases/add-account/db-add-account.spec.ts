@@ -108,7 +108,7 @@ describe("DbAddAccount UseCase", () => {
     const { sut, addAccountRepositoryStub } = makeSut();
     jest
       .spyOn(addAccountRepositoryStub, "add")
-      .mockReturnValueOnce(Promise.reject(new Error()));
+      .mockImplementationOnce(()=> { throw new Error()});
     const promise = sut.add(makeFakeAccountData());
     await expect(promise).rejects.toThrow();
   });

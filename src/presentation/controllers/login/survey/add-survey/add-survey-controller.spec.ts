@@ -91,9 +91,7 @@ describe("AddSurvey Controller", () => {
     const { sut, addSurveyStub } = makeSut();
     jest
       .spyOn(addSurveyStub, "add")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+      .mockImplementationOnce(()=> { throw new Error()});
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
