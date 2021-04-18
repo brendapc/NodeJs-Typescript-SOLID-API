@@ -1,4 +1,4 @@
-import { LoadAccountByToken } from "./../../domain/usecases/load-account-by-token";
+import { LoadAccountByToken } from "../../domain/usecases/account/load-account-by-token";
 import { AccountModel } from "../../domain/models/account";
 import { AccessDeniedError } from "../errors";
 import { forbbiden, ok, serverError } from "./../helpers/http/http-helper";
